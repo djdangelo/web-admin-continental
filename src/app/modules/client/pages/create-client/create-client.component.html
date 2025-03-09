@@ -1,0 +1,67 @@
+<div class="col-12">
+  <p-messages [(value)]="messages" [enableService]="false" />
+</div>
+<div class="card">
+  <span class="text-900 text-xl font-bold mb-4 block">Formulario de cliente</span>
+  <div class="grid">
+    <div class="col-12 lg:col-2">
+      <div class="text-900 font-medium text-xl mb-3">Cliente</div>
+      <p class="m-0 p-0 text-600 line-height-3 mr-3">Formulario para: {{action[index]}}</p>
+    </div>
+    <form [formGroup]="formClient" class="col-12 lg:col-10">
+      <div class="grid formgrid p-fluid">
+        <div class="field mb-4 col-12">
+          <label for="nickname" class="font-medium text-900">Nombre</label>
+          <input id="nickname" formControlName="name" type="text" pInputText>
+        </div>
+        <div class="field mb-4 col-12">
+          <label for="lastname" class="font-medium text-900">Apellido</label>
+          <input id="lastname" formControlName="lastName" type="text" pInputText>
+        </div>
+        <div class="field mb-4 col-12">
+          <label for="dni" class="font-medium text-900">DNI</label>
+          <input id="dni" formControlName="dni" type="text" pInputText>
+        </div>
+        <div class="field mb-4 col-12">
+          <label for="fec" class="font-medium text-900">Fecha de nacimiento</label>
+          <p-calendar id="fec" formControlName="birthDate" [showIcon]="true" inputId="icon"></p-calendar>
+        </div>
+        <div class="field mb-4 col-12">
+          <label for="phoneNumber" class="font-medium text-900">Telefono</label>
+          <input id="phoneNumber" formControlName="phoneNumber" type="tel" pInputText>
+        </div>
+        <div class="field mb-4 col-12">
+          <label for="email" class="font-medium text-900">Correo electronico</label>
+          <input id="email" formControlName="email" type="email" pInputText>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="typeClientId" class="font-medium text-900">Tipo de cliente</label>
+          <p-dropdown inputId="typeClientId" formControlName="typeClientId" [options]="typeClient"
+                      optionLabel="typeName" [filter]="false" filterBy="typeName" [showClear]="true"
+                      placeholder="Seleccione">
+            <ng-template let-typeClient pTemplate="item">
+              <div class="flex align-items-center">
+                <div>{{typeClient.typeName}}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="status" class="font-medium text-900">Estado</label>
+          <p-dropdown inputId="status" formControlName="status" [options]="status"
+                      optionLabel="name" [filter]="false" filterBy="name" [showClear]="true" placeholder="Seleccione">
+            <ng-template let-status pTemplate="item">
+              <div class="flex align-items-center">
+                <div>{{status.name}}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div class="col-12">
+          <button [disabled]='formClient.invalid || btnSave' pButton pRipple (click)="saveCustomer(formClient.value)" label="GUARDAR" class="w-auto mt-3"></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
