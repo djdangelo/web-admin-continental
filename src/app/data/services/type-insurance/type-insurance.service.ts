@@ -21,6 +21,6 @@ export class TypeInsuranceService {
     return this.http.put<TypeInsuranceInterface>(`${globalApp.apiUrl}/TypeInsurance/${id}`, data);
   }
   list() {
-    return this.http.get<TypeInsuranceInterface[]>(`${globalApp.apiUrl}/TypeInsurances`);
+    return this.http.get<TypeInsuranceInterface[]>(`${globalApp.apiUrl}/TypeInsurance`);
   }
 }

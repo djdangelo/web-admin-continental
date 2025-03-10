@@ -13,7 +13,7 @@
                (onLazyLoad)="loadClients($event)"
                [tableStyle]="{ 'min-width': '50rem' }"
                [rowsPerPageOptions]="[5, 10, 20]" selectionMode="single"
-               scrollDirection="both" [scrollable]="true"  styleClass="mt-3" responsiveLayout="scroll"
+               scrollDirection="both" [scrollable]="true" (onRowSelect)="setData($event)"  styleClass="mt-3" responsiveLayout="scroll"
                [globalFilterFields]="['name']" >
         <ng-template pTemplate="caption">
           <div  class="flex flex-wrap gap-2 align-items-center justify-content-between">
@@ -21,13 +21,13 @@
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar por nombre..." class="w-full" />
                 </span>
-            <button (click)="navigateToFormCustomer()" pButton class="p-button-outlined w-full sm:w-auto flex-order-0 sm:flex-order-1" icon="pi pi-plus" label="Agregar nuevo cliente"></button>
+            <button *ngIf="sharedService.showBtnNewClient" (click)="navigateToFormCustomer()" pButton class="p-button-outlined w-full sm:w-auto flex-order-0 sm:flex-order-1" icon="pi pi-plus" label="Agregar nuevo cliente"></button>
           </div>
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
-            <th>ACTUALIZAR</th>
-            <th>ELIMINAR</th>
+            <th *ngIf="sharedService.showBtnUpdate">ACTUALIZAR</th>
+            <th *ngIf="sharedService.showBtnDelete">ELIMINAR</th>
             <th class="font-bold">ID</th>
             <th>NOMBRE</th>
             <th>APELLIDO</th>
@@ -41,8 +41,8 @@
         </ng-template>
         <ng-template pTemplate="body" let-data>
           <tr [pSelectableRow]="data">
-            <td><button (click)="navigateToUpdateCustomer(data.clientId)" pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success"></button></td>
-            <td><button (click)="deleteClient(data.clientId)" pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"></button></td>
+            <td *ngIf="sharedService.showBtnUpdate"><button (click)="navigateToUpdateCustomer(data.clientId)" pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success"></button></td>
+            <td *ngIf="sharedService.showBtnDelete"><button (click)="deleteClient(data.clientId)" pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"></button></td>
             <td  class="font-bold">{{data.clientId}}</td>
             <td>{{data.name}}</td>
             <td>{{data.lastName}}</td>

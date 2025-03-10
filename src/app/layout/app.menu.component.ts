@@ -24,8 +24,8 @@ export class AppMenuComponent implements OnInit {
           {
             label: 'Cotizaciones', icon: 'fa-solid fa-ticket',
             items: [
-              { label: 'Lista de Cotizaciones', icon: 'pi pi-bars', routerLink: ['coupons/list-coupon'] },
-              { label: 'Crear nueva cotizacion', icon: 'pi pi-plus', routerLink: ['coupons/generate-coupon'] },
+              { label: 'Lista de Cotizaciones', icon: 'pi pi-bars', routerLink: ['quotes/list-quote'] },
+              { label: 'Crear nueva cotizacion', icon: 'pi pi-plus', routerLink: ['quotes/create-quote'] },
             ]
           },
           {

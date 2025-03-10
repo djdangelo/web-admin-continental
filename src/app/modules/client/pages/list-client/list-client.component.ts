@@ -4,6 +4,7 @@ import {Message} from "primeng/api";
 import {Router} from "@angular/router";
 import {ClientService} from "../../../../data/services/client/client.service";
 import {Table} from "primeng/table";
+import {SharedService} from "../../../../data/services/shared/shared.service";
 
 @Component({
   selector: 'app-list-client',
@@ -21,7 +22,8 @@ export class ListClientComponent {
 
   constructor(
     private clientService: ClientService,
-    private router: Router,) {
+    private router: Router,
+    public sharedService: SharedService) {
   }
   ngOnInit() {
     this.getListClient(1,10);
@@ -72,9 +74,13 @@ export class ListClientComponent {
 
   loadClients($event: any) {
     this.loading = true;
-    this.pageNumber = $event.first / $event.rows + 1; // Calcula el número de página
+    this.pageNumber = $event.first / $event.rows + 1;
     this.pageSize = $event.rows;
     console.log(this.pageNumber,this.pageSize);
     this.getListClient(this.pageNumber,this.pageSize);
+  }
+
+  setData($event: any) {
+    this.sharedService.selectClient = $event.data;
   }
 }

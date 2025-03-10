@@ -1,0 +1,51 @@
+<div class="col-12">
+  <p-messages [(value)]="messages" [enableService]="false" />
+</div>
+<div class="card">
+  <span class="text-900 text-xl font-bold mb-4 block">Formulario de cotizacion</span>
+  <div class="grid">
+    <div class="col-12 lg:col-2">
+      <div class="text-900 font-medium text-xl mb-3">Cotizacion</div>
+      <p class="m-0 p-0 text-600 line-height-3 mr-3">Formulario para: {{action[0]}}</p>
+    </div>
+    <form [formGroup]="formQuote" class="col-12 lg:col-10">
+      <div class="grid formgrid p-fluid">
+        <div class="field mb-4 col-12">
+          <label for="descriptionAsset" class="font-medium text-900">Descripcion del bien</label>
+          <input id="descriptionAsset" formControlName="descriptionAsset" type="text" pInputText>
+        </div>
+        <div class="field mb-4 col-12">
+          <label for="totalInsurance" class="font-medium text-900">Monto asegurar</label>
+          <input id="totalInsurance" formControlName="totalInsurance" type="number" pInputText>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="currencyId" class="font-medium text-900">Moneda</label>
+          <p-dropdown inputId="currencyId" formControlName="currencyId" [options]="listCurrency"
+                      optionLabel="currencyName" [filter]="false" filterBy="currencyName" [showClear]="true"
+                      placeholder="Seleccione">
+            <ng-template let-currency pTemplate="item">
+              <div class="flex align-items-center">
+                <div>{{currency.currencyName}}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="typeInsuranceId" class="font-medium text-900">Tipo de seguro</label>
+          <p-dropdown inputId="typeInsuranceId" formControlName="typeInsuranceId" [options]="listTypeInsurance"
+                      optionLabel="name" [filter]="false" filterBy="name" [showClear]="true" placeholder="Seleccione">
+            <ng-template let-insurance pTemplate="item">
+              <div class="flex align-items-center">
+                <div>{{insurance.name}}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div class="col-12">
+          <button [disabled]='formQuote.invalid || btnSave' pButton pRipple (click)="saveQuote(formQuote.value)" label="GUARDAR" class="w-auto mt-3"></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+

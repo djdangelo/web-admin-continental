@@ -1,1 +1,59 @@
-<p>list-quote works!</p>
+<div class="col-12">
+  <p-messages [(value)]="messages" [enableService]="false" />
+</div>
+<div class="grid p-fluid">
+  <div class="col-12">
+    <div class="card">
+      <h5>Cotizaciones</h5>
+      <p-table #dt [value]="listQuote" [paginator]="true"
+               [rows]="10"
+               [lazy]="true"
+               [totalRecords]="1000"
+               [loading]="loading"
+               (onLazyLoad)="loadQuote($event)"
+               [tableStyle]="{ 'min-width': '50rem' }"
+               [rowsPerPageOptions]="[5, 10, 20]" selectionMode="single"
+               scrollDirection="both" [scrollable]="true"  styleClass="mt-3" responsiveLayout="scroll"
+               [globalFilterFields]="['descriptionAsset']" >
+        <ng-template pTemplate="caption">
+          <div  class="flex flex-wrap gap-2 align-items-center justify-content-between">
+            <span class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar por nombre..." class="w-full" />
+                </span>
+            <button (click)="navigateToFormQuote()" pButton class="p-button-outlined w-full sm:w-auto flex-order-0 sm:flex-order-1" icon="pi pi-plus" label="Agregar nueva cotizacion"></button>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="font-bold">ID</th>
+            <th>DESCRIPCION</th>
+            <th>MONTO ASEGURADO</th>
+            <th>PRIMA NETA</th>
+            <th>PROCENTAJE DE PRIMA</th>
+            <th>FECHA DE COTIZACION</th>
+            <th>TIPO SEGURO</th>
+            <th>MONEDA</th>
+            <th>NOMBRE CLIENTE</th>
+            <th>ESTADO</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data>
+          <tr [pSelectableRow]="data">
+            <td  class="font-bold">{{data.quoteId}}</td>
+            <td>{{data.descriptionAsset}}</td>
+            <td>{{data.totalInsurance}}</td>
+            <td>{{data.downPayment}}</td>
+            <td>{{data.rate}}%</td>
+            <td>{{data.createAt | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td>{{data.typeInsuranceEntity.name}}</td>
+            <td>{{data.currencyEntity.currencyName}}</td>
+            <td>{{data.clientEntity.name}} {{data.clientEntity.lastName}}</td>
+            <td>{{data.status | status}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
